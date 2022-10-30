@@ -18,7 +18,7 @@
     "baseUrl": "./",
   },
   "include": [
-    "../types/**/*.d.ts",
-    "../types/@skalenetwork⁄filestorage.js.d.ts",
+    "../../types/**/*.d.ts",
+    "../../types/@skalenetwork__filestorage.js.d.ts",
   ]
 }

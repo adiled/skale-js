@@ -1,5 +1,7 @@
 // replace with already published or later published equivalent
-import { ContractContext } from '../types/abi/filestorage-1.0.1';
+import type { ContractContext } from '../types/abi/filestorage-1.0.1';
+import type { FilePath } from '../types';
+import type { DePath, Address, PrivateKey, IDeDirectory, IDeFile, OperationEvent, OperationPayload, FileLike } from './types';
 
 /**
  * @module
@@ -14,26 +16,20 @@ import { ContractContext } from '../types/abi/filestorage-1.0.1';
 // as well considering storage options with IndexDB, and advanced uploads management
 // pre-req: standardization of paths as spec from systems up to client-side, exported across SDKs
 
-//@ts-ignore
 import FileStorage, {
   FileStorageDirectory,
   FileStorageFile,
   StoragePath,
 } from '@skalenetwork/filestorage.js';
 
-//@ts-ignore
 import { BehaviorSubject, Observable, of, firstValueFrom } from 'rxjs';
 import { concatMap, share } from 'rxjs/operators';
 
 import { Buffer } from 'buffer';
-//@ts-ignore
 import sortBy from 'lodash/sortBy';
-//@ts-ignore
 import mime from 'mime/lite';
 import Fuse from 'fuse.js';
 import { nanoid } from 'nanoid';
-
-import type { FilePath, DePath, Address, PrivateKey, IDeDirectory, IDeFile, OperationEvent, OperationPayload, FileLike } from './types';
 
 import utils from './utils';
 const { sanitizeAddress, pathToRelative } = utils;

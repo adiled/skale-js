@@ -1,7 +1,8 @@
-import path from 'path';
-import { fs } from 'fs';
-import { program } from 'commander';
 import type { Chain } from '../../types';
+
+import { join, resolve } from 'path';
+import { readFileSync, readdir, existsSync, stat } from 'fs';
+import { program } from 'commander';
 
 program
   .description('Use all paths relative to base which the CLI assumes to be ../ from itself')
@@ -12,12 +13,15 @@ program
   .option('-m, --mode <char>', 'the postfix of .env file (typical: "staging", "production")')
   .option('-i, --interactive', 'interactively set address and private key')
   ;
+
 program.parse();
-const options = program.opts();
 program.showHelpAfterError();
 
-const envFilePath = `../.env${options.mode ? ('.' + options.mode) : ''}`;
-require('dotenv').config({ path: path.join(__dirname, envFilePath) });
+const options = program.opts();
+
+// load .env or .env.* from cwd
+const envFilePath = join('./', `.env${options.mode ? ('.' + options.mode) : ''}`);
+require('dotenv').config({ path: envFilePath });
 
 const { env } = process;
 
@@ -77,7 +81,7 @@ const getKeys = async () => {
         message = "[x] Failed to upload:";
       }
 
-      console.info(message, path.join(
+      console.info(message, join(
         (event.result.destDirectory as DeDirectory).path,
         event.result.file.name)
       );
@@ -86,10 +90,10 @@ const getKeys = async () => {
 
   const iterateLocalDirectory = (directoryPath, onEntry) => {
     const iterator = async () => {
-      fs.readdir(directoryPath, async (err, files) => {
+      readdir(directoryPath, async (err, files) => {
         for await (let filePath of files) {
-          const file = path.resolve(directoryPath, filePath);
-          fs.stat(file, (err, stat) => {
+          const file = resolve(directoryPath, filePath);
+          stat(file, (err, stat) => {
             if (stat.isDirectory()) {
               onEntry({
                 kind: "directory",
@@ -122,7 +126,7 @@ const getKeys = async () => {
     remotePath: string = options.destinationPath
   ) => {
 
-    if (!fs.existsSync(localPath)) {
+    if (!existsSync(localPath)) {
       console.error("\nError: sourcePath is invalid, does not exist\n");
       return process.exit();
     }
@@ -139,7 +143,7 @@ const getKeys = async () => {
         try {
           const { status, result } = await fm.uploadFile(deDirectory, {
             name: entry.name,
-            buffer: () => fs.readFileSync(entry.path)
+            buffer: () => readFileSync(entry.path)
           });
         } catch (e) {
         }
@@ -185,4 +189,3 @@ const getKeys = async () => {
   uploadDirectory();
 
 })();
-

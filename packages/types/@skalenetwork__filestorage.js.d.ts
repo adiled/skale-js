@@ -1,8 +1,6 @@
 declare module '@skalenetwork/filestorage.js' {
 
-  import type { ContractContext } from './abi/filestorage-1.0.1.ts';
-  import { Contract } from 'web3-eth-contract';
-
+  type FilePath = string;
   type StoragePath = string;
   type Address = string;
   type PrivateKey = string;
@@ -29,7 +27,7 @@ declare module '@skalenetwork/filestorage.js' {
   }
 
   export class FilestorageContract {
-    contract: ContractContext
+    contract: unknown;
   }
 
   export default class Filestorage {
@@ -38,7 +36,7 @@ declare module '@skalenetwork/filestorage.js' {
 
     constructor(
       web3: any,
-      enableLogs: boolean): unknown;
+      enableLogs: boolean);
 
     // core-actions:authorized
 
@@ -94,6 +92,7 @@ declare module '@skalenetwork/filestorage.js' {
 
     getOccupiedSpace(
       address: Address): Promise<BigInt>;
+
     // state::global
 
     getTotalReservedSpace(): Promise<BigInt>;

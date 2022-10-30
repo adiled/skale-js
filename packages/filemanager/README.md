@@ -45,7 +45,3 @@ The project deployment script demonstrates use of the library with NodeJS alongs
 - Transactional operations could inter-operate with contract events, fs.js events (if implemented), and block events.
 - Paths and resolution can be improved with a special class.
 - Support for [MTM](https://skale.network/blog/Multi-transaction-mode-aka-speedy-game-mode) may be built into `filestorage.js` and then this package will have to be updated to pipe transactions in packets of max MTM limit by chain.
-
-### Reference
-
-Up-to-date interfaces are best referred to within the [package](https://github.com/skalenetwork/filestorage-ui/tree/main/src/packages/filemanager).
