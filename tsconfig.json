@@ -1,16 +1,17 @@
 {
-    "compilerOptions": {
-        "composite": true
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+    "outDir": "./dist"
+  },
+  "references": [
+    {
+      "path": "./packages/filemanager"
     },
-    "references": [
-        {
-            "path": "./packages/cli"
-        },
-        {
-            "path": "./packages/filemanager"
-        },
-        {
-            "path": "./packages/types"
-        },
-    ]
+    {
+      "path": "./packages/hooks"
+    },
+  ]
 }

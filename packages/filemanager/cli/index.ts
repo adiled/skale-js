@@ -1,7 +1,7 @@
 import path from 'path';
-import fs from 'fs';
+import { fs } from 'fs';
 import { program } from 'commander';
-import type { Chain } from '../types';
+import type { Chain } from '../../types';
 
 program
   .description('Use all paths relative to base which the CLI assumes to be ../ from itself')
@@ -23,7 +23,9 @@ const { env } = process;
 
 import promptt from "password-prompt";
 import Web3 from "web3";
-import { DeDirectory, DeFileManager, OPERATION } from "../filemanager";
+
+import { DeDirectory, DeFileManager } from "../defilemanager";
+import { OPERATION } from "../constants";
 
 const getRpcEndpoint = (data: Chain) => {
   return `${data.protocol}://${data.nodeDomain}/${data.version}/${data.sChainName}`
