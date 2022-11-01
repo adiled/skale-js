@@ -5,7 +5,7 @@ declare module '@skalenetwork/filestorage.js' {
   type Address = string;
   type PrivateKey = string;
 
-  export enum FileState {
+  export const enum FileState {
     NoExist = 0,
     Created = 1,
     Uploaded = 2,

@@ -104,17 +104,16 @@ export class DeFileManager {
   account?: Address;
   accountPrivateKey?: PrivateKey;
 
-  w3: Object;
-  fs: FileStorage;
-  contract: ContractContext;
+  readonly w3: Object;
+  readonly fs: FileStorage;
+  readonly contract: ContractContext;
 
   private index: { [path: string]: DeDirectory }
-  private rootDir: DeDirectory;
+  private readonly rootDir: DeDirectory;
+  private cache: { [key: string]: (FileStorageDirectory | FileStorageFile)[] };
 
-  cache: { [key: string]: (FileStorageDirectory | FileStorageFile)[] };
-
-  store: BehaviorSubject<Observable<() => Promise<OperationEvent>>>;
-  bus: Observable<OperationEvent>;
+  readonly store: BehaviorSubject<Observable<() => Promise<OperationEvent>>>;
+  readonly bus: Observable<OperationEvent>;
 
   constructor(
     w3: Object,
